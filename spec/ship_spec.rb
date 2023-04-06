@@ -14,17 +14,17 @@ Rspec.describe Ship do
     expect(cruiser.sunk?).to eq(false)
   end
 
-    it 'can take hits and sink' do
-      cruiser = Ship.new("Cruiser", 3)
-      cruiser.hit
-      expect(cruiser.health).to eq(2)
-      expect(cruiser.sunk?).to eq(false)
-      cruiser.hit
-      expect(cruiser.health).to eq(1)
-      expect(cruiser.sunk?).to eq(false)
-      cruiser.hit
-      expect(cruiser.health).to eq(0)
-      expect(cruiser.sunk?).to eq(true)
-    end
+  it 'can take hits and sink' do
+    cruiser = Ship.new("Cruiser", 3)
+    cruiser.hit
+    expect(cruiser.health).to eq(2)
+    expect(cruiser.sunk?).to eq(false)
+    cruiser.hit
+    expect(cruiser.health).to eq(1)
+    expect(cruiser.sunk?).to eq(false)
+    cruiser.hit
+    expect(cruiser.health).to eq(0)
+    expect(cruiser.sunk?).to eq(true)
+  end
 
 end
