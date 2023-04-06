@@ -84,7 +84,7 @@ RSpec.describe Cell do
       expect(@cell_2.sunk?).to be false
     end
 
-    it '#hit' do 
+    it 'both cell and cruiser can take hits' do 
       @cell_2.place_ship(@cruiser)
       @cell_2.fire_upon
       @cruiser.hit
