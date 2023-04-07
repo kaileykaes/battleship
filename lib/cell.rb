@@ -1,5 +1,4 @@
 class Cell
-
   attr_reader :ship, 
               :coordinate
   
