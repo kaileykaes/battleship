@@ -34,14 +34,14 @@ RSpec.describe Board do
   end
 
   describe 'placment validation' do
-    xit 'checks before ship placement' do
+    it 'checks before ship placement' do
       cruiser = Ship.new("Cruiser", 3)  
       submarine = Ship.new("Submarine", 2) 
       expect(@board.valid_placement?(cruiser, ["A1", "A2"])).to be false
       expect(@board.valid_placement?(submarine, ["A2", "A3", "A4"])). to be false
     end
   
-    xit 'has consecutive coordinates' do
+    it 'has consecutive coordinates' do
       cruiser = Ship.new("Cruiser", 3)  
       submarine = Ship.new("Submarine", 2) 
       expect(@board.valid_placement?(cruiser, ["A1", "A2", "A4"])).to be false
@@ -50,18 +50,17 @@ RSpec.describe Board do
       expect(@board.valid_placement?(submarine, ["C1", "B1"])).to be false
     end
   
-    xit 'is not diagonal' do
+    it 'is not diagonal' do
       cruiser = Ship.new("Cruiser", 3)  
       submarine = Ship.new("Submarine", 2) 
       expect(@board.valid_placement?(cruiser, ["A1", "B2", "C3"])).to be false
       expect(@board.valid_placement?(submarine, ["C2", "D3"])).to be false
     end
 
-    xit '#valid_placement' do
+    it '#valid_placement' do
       cruiser = Ship.new("Cruiser", 3)  
       submarine = Ship.new("Submarine", 2) 
       expect(@board.valid_placement?(submarine, ["A1", "A2"])).to be true
-      require 'pry'; binding.pry
       expect(@board.valid_placement?(cruiser, ["B1", "C1", "D1"])).to be true
     end
   end
@@ -72,7 +71,7 @@ RSpec.describe Board do
       expect(@board.are_consecutive?(["A1", "A2"])).to be true
       expect(@board.are_consecutive?(['A1', 'A4'])).to be false
       expect(@board.are_consecutive?(['A2', 'B4'])).to be false
-
+      expect(@board.are_consecutive?(['A2', 'C2'])).to be false
     end
   end
 
