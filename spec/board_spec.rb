@@ -74,11 +74,11 @@ RSpec.describe Board do
       expect(@board.are_consecutive?(['A2', 'C2'])).to be false
     end
 
-    it 'ship_present?' do
+    it '#ship_present?' do
       cruiser = Ship.new("Cruiser", 3)  
       submarine = Ship.new("Submarine", 2) 
       expect(@board.ship_present?(['A1', 'A2'])).to be false
-      @board.place_ship(cruiser, ['A1', 'A2'])
+      @board.place(cruiser, ['A1', 'A2'])
       expect(@board.ship_present?(['A1', 'A2'])).to be true
     end
   end
@@ -107,7 +107,7 @@ RSpec.describe Board do
   end
 
   describe 'render the board' do
-    xit 'generates a board' do
+    it 'generates a board' do
       cruiser = Ship.new("Cruiser", 3)
       @board.place(cruiser, ["A1", "A2", "A3"]) 
       @board.render
