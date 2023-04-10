@@ -31,6 +31,14 @@ class Board
     ship.length == coordinates.length && are_consecutive?(coordinates) && ship_present?(coordinates) == false
   end
 
+  def place(ship, coordinates)
+    coordinates.map do |coordinate|
+      if @cells.keys.include?(coordinate)
+        @cells[coordinate].place_ship(ship)
+      end
+    end
+  end
+
   def are_consecutive?(coordinates)
     letters = coordinates.map do |coordinate|
       coordinate[0]
