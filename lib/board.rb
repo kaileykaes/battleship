@@ -28,11 +28,7 @@ class Board
   end
 
   def valid_placement?(ship, coordinates)
-    if ship.length == coordinates.length && are_consecutive?(coordinates)
-      true
-    else
-      false
-    end
+    ship.length == coordinates.length && are_consecutive?(coordinates)
   end
 
   def are_consecutive?(coordinates)
@@ -52,7 +48,7 @@ class Board
     number_range = (numbers.first..numbers.last).to_a
     if letter_sameness == true && number_range == numbers
       true
-    elsif letter_sameness == false && number_sameness == true
+    elsif letter_sameness == false && letter_range == letters && number_sameness == true
       true
     else
       false
