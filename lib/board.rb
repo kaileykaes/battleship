@@ -27,6 +27,18 @@ class Board
     @cells.keys.include?(coordinate)
   end
 
-  
+  def valid_placement?(ship, coordinates)
+   
+    require 'pry'; binding.pry
+    if ship.length == coordinates.length
+      true
+    else
+      false
+    end
+  end
+
+  def are_consecutive?(array)
+
+  end
 
 end
