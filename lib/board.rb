@@ -1,6 +1,5 @@
 class Board
-  attr_reader :cells,
-              :ships
+  attr_reader :cells
 
   def initialize
     @ships = []
