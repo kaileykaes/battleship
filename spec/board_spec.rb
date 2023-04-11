@@ -21,6 +21,10 @@ RSpec.describe Board do
       expect(@board.cells['C3'].class).to eq(Cell)
       expect(@board.cells['D4'].class).to eq(Cell)
     end
+
+    it 'begins with no ships' do 
+      expect(@board.ships).to eq([])
+    end
   end
 
   describe 'coordinate validation' do 
@@ -63,6 +67,8 @@ RSpec.describe Board do
       expect(@board.valid_placement?(submarine, ["A1", "A2"])).to be true
       expect(@board.valid_placement?(cruiser, ["B1", "C1", "D1"])).to be true
     end
+
+    #edge case test with invalid coordinate passed to valid_placement?
   end
 
   describe 'validation helpers' do 
@@ -73,10 +79,18 @@ RSpec.describe Board do
       expect(@board.are_consecutive?(['A2', 'B4'])).to be false
       expect(@board.are_consecutive?(['A2', 'C2'])).to be false
     end
+
+    it '#ship_present?' do
+      cruiser = Ship.new("Cruiser", 3)  
+      submarine = Ship.new("Submarine", 2) 
+      expect(@board.ship_present?(['A1', 'A2'])).to be false
+      @board.place(cruiser, ['A1', 'A2'])
+      expect(@board.ship_present?(['A1', 'A2'])).to be true
+    end
   end
 
   describe 'places ships' do 
-    xit 'places cruiser' do
+    it 'places cruiser' do
       cruiser = Ship.new("Cruiser", 3)
       @board.place(cruiser, ["A1", "A2", "A3"])  
       cell_1 = @board.cells["A1"]    
@@ -87,19 +101,27 @@ RSpec.describe Board do
       expect(cell_3.ship).to eq(cruiser)
       expect(cell_3.ship == cell_2.ship).to be true
     end
+
+    it 'stores ships in array after placing ships' do 
+      cruiser = Ship.new("Cruiser", 3)
+      @board.place(cruiser)
+      expect(@board.ships).to eq([cruiser])
+    end
   end
 
   describe 'overlapping ships' do
-    xit 'does not overlap' do
+    it 'does not overlap' do
       cruiser = Ship.new("Cruiser", 3)
       @board.place(cruiser, ["A1", "A2", "A3"])
       submarine = Ship.new("Submarine", 2) 
       expect(@board.valid_placement?(submarine, ["A1", "B1"])).to be false
     end
+
+    #test true value 
   end
 
   describe 'render the board' do
-    xit 'generates a board' do
+    it 'generates a board' do
       cruiser = Ship.new("Cruiser", 3)
       @board.place(cruiser, ["A1", "A2", "A3"]) 
       @board.render
