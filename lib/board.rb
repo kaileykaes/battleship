@@ -29,7 +29,9 @@ class Board
   end
 
   def valid_placement?(ship, coordinates)
-    ship.length == coordinates.length && are_consecutive?(coordinates) && ship_present?(coordinates) == false
+    ship.length == coordinates.length && 
+    are_consecutive?(coordinates) && 
+    ship_present?(coordinates) == false
   end
 
   def place(ship, coordinates)

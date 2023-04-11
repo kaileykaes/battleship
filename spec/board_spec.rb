@@ -100,7 +100,7 @@ RSpec.describe Board do
       expect(cell_3.ship == cell_2.ship).to be true
     end
 
-    it 'has ships after placing ships' do 
+    it 'stores ships in array after placing ships' do 
       cruiser = Ship.new("Cruiser", 3)
       @board.place(cruiser)
       expect(@board.ships).to eq([cruiser])
