@@ -23,15 +23,31 @@ RSpec.describe 'Game' do
     end
   end
 
-  describe 'main menu'do
-  
-  
-  
-  
-  # User is shown the main menu where they can play or quit
+  describe 'main menu' do
+    it 'prints a welcome message' do
+      expect(@game.main_menu).to eq("Welcome to BATTLESHIP\n Enter p to play. Enter q to quit.")
+    end
   end
 
   describe 'setup' do
+    it 'robo places ships randomly in valid locations' do
+      expect(@game.robo_board.ships.empty?).to be true
+      require 'pry'; binding.pry
+      @game.robo_place_ship(@game.robo_cruiser)
+      # expect(@game.helper_method).to be = false
+    end
+
+    it 'human places ships randomly in valid locations' do
+    
+    end
+
+    it 'takes coordinates from user to place ships' do
+
+    end
+
+    it 'prompts user to enter valid placements if invalid placements' do
+
+    end
     # Computer can place ships randomly in valid locations
     # User can enter valid sequences to place both ships
     # Entering invalid ship placements prompts user to enter valid placements
