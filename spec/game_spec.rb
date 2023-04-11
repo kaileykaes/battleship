@@ -32,9 +32,9 @@ RSpec.describe 'Game' do
   describe 'setup' do
     it 'robo places ships randomly in valid locations' do
       expect(@game.robo_board.ships.empty?).to be true
-      require 'pry'; binding.pry
-      @game.robo_place_ship(@game.robo_cruiser)
-      # expect(@game.helper_method).to be = false
+      @game.robo_place_ship
+      # require 'pry'; binding.pry
+      expect(@game.robo_board.ships).to eq([@game.robo_cruiser, @game.robo_submarine])
     end
 
     it 'human places ships randomly in valid locations' do

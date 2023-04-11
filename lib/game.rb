@@ -22,7 +22,7 @@ class Game
   def robo_place_ship
     loop do
       random_coordinates = []
-      @robo_cruiser.length.times do 
+      3.times do 
       random_coordinates << @robo_board.cells.keys.sample
       end
       if @robo_board.valid_placement?(@robo_cruiser, random_coordinates)
@@ -32,12 +32,12 @@ class Game
     end
     loop do
       random_coordinates = []
-      @robo_submarine.length.times do 
+      2.times do 
       random_coordinates << @robo_board.cells.keys.sample
       end
       if @robo_board.valid_placement?(@robo_submarine, random_coordinates)
         @robo_board.place(@robo_submarine, random_coordinates)
-          break
+        break
       end
     end
 
