@@ -21,6 +21,10 @@ RSpec.describe Board do
       expect(@board.cells['C3'].class).to eq(Cell)
       expect(@board.cells['D4'].class).to eq(Cell)
     end
+
+    it 'begins with no ships' do 
+      expect(@board.ships).to eq([])
+    end
   end
 
   describe 'coordinate validation' do 
@@ -96,6 +100,12 @@ RSpec.describe Board do
       expect(cell_2.ship).to eq(cruiser)
       expect(cell_3.ship).to eq(cruiser)
       expect(cell_3.ship == cell_2.ship).to be true
+    end
+
+    it 'stores ships in array after placing ships' do 
+      cruiser = Ship.new("Cruiser", 3)
+      @board.place(cruiser)
+      expect(@board.ships).to eq([cruiser])
     end
   end
 

@@ -1,5 +1,6 @@
 class Board
-  attr_reader :cells
+  attr_reader :cells,
+              :ships
 
   def initialize
     @ships = []
@@ -37,6 +38,7 @@ class Board
     coordinates.map do |coordinate|
       if @cells.keys.include?(coordinate)
         @cells[coordinate].place_ship(ship)
+        @ships << ship
       end
     end
   end
