@@ -36,6 +36,7 @@ class Board
     coordinates.map do |coordinate|
       if @cells.keys.include?(coordinate)
         @cells[coordinate].place_ship(ship)
+        @ships << ship
       end
     end
   end
