@@ -63,6 +63,8 @@ RSpec.describe Board do
       expect(@board.valid_placement?(submarine, ["A1", "A2"])).to be true
       expect(@board.valid_placement?(cruiser, ["B1", "C1", "D1"])).to be true
     end
+
+    #edge case test with invalid coordinate passed to valid_placement?
   end
 
   describe 'validation helpers' do 
@@ -104,6 +106,8 @@ RSpec.describe Board do
       submarine = Ship.new("Submarine", 2) 
       expect(@board.valid_placement?(submarine, ["A1", "B1"])).to be false
     end
+
+    #test true value 
   end
 
   describe 'render the board' do
