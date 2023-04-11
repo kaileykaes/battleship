@@ -21,6 +21,10 @@ RSpec.describe Board do
       expect(@board.cells['C3'].class).to eq(Cell)
       expect(@board.cells['D4'].class).to eq(Cell)
     end
+
+    it 'begins with no ships' do 
+      expect(@board.ships).to eq([])
+    end
   end
 
   describe 'coordinate validation' do 
