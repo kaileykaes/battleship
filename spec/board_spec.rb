@@ -73,10 +73,18 @@ RSpec.describe Board do
       expect(@board.are_consecutive?(['A2', 'B4'])).to be false
       expect(@board.are_consecutive?(['A2', 'C2'])).to be false
     end
+
+    it '#ship_present?' do
+      cruiser = Ship.new("Cruiser", 3)  
+      submarine = Ship.new("Submarine", 2) 
+      expect(@board.ship_present?(['A1', 'A2'])).to be false
+      @board.place(cruiser, ['A1', 'A2'])
+      expect(@board.ship_present?(['A1', 'A2'])).to be true
+    end
   end
 
   describe 'places ships' do 
-    xit 'places cruiser' do
+    it 'places cruiser' do
       cruiser = Ship.new("Cruiser", 3)
       @board.place(cruiser, ["A1", "A2", "A3"])  
       cell_1 = @board.cells["A1"]    
@@ -90,7 +98,7 @@ RSpec.describe Board do
   end
 
   describe 'overlapping ships' do
-    xit 'does not overlap' do
+    it 'does not overlap' do
       cruiser = Ship.new("Cruiser", 3)
       @board.place(cruiser, ["A1", "A2", "A3"])
       submarine = Ship.new("Submarine", 2) 
@@ -99,7 +107,7 @@ RSpec.describe Board do
   end
 
   describe 'render the board' do
-    xit 'generates a board' do
+    it 'generates a board' do
       cruiser = Ship.new("Cruiser", 3)
       @board.place(cruiser, ["A1", "A2", "A3"]) 
       @board.render

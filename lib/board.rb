@@ -28,7 +28,15 @@ class Board
   end
 
   def valid_placement?(ship, coordinates)
-    ship.length == coordinates.length && are_consecutive?(coordinates)
+    ship.length == coordinates.length && are_consecutive?(coordinates) && ship_present?(coordinates) == false
+  end
+
+  def place(ship, coordinates)
+    coordinates.map do |coordinate|
+      if @cells.keys.include?(coordinate)
+        @cells[coordinate].place_ship(ship)
+      end
+    end
   end
 
   def are_consecutive?(coordinates)
@@ -55,5 +63,11 @@ class Board
     end
   end
 
+  def ship_present?(coordinates)
+    thar_she_blows = coordinates.find do |coordinate| 
+      @cells[coordinate].ship != nil
+    end
+    thar_she_blows == nil ? false : true
+  end
 end
 
