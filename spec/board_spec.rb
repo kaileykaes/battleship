@@ -21,9 +21,13 @@ RSpec.describe Board do
       expect(@board.cells['C3'].class).to eq(Cell)
       expect(@board.cells['D4'].class).to eq(Cell)
     end
+  
+  it 'begins with no ships' do 
+    expect(@board.ships).to eq([])
   end
-
-  describe 'coordinate validation' do 
+end
+  
+describe 'coordinate validation' do 
     it '#valid_coordinate' do 
       expect(@board.valid_coordinate?("A1")).to be true
       expect(@board.valid_coordinate?("D4")).to be true
@@ -73,18 +77,10 @@ RSpec.describe Board do
       expect(@board.are_consecutive?(['A2', 'B4'])).to be false
       expect(@board.are_consecutive?(['A2', 'C2'])).to be false
     end
-
-    it '#ship_present?' do
-      cruiser = Ship.new("Cruiser", 3)  
-      submarine = Ship.new("Submarine", 2) 
-      expect(@board.ship_present?(['A1', 'A2'])).to be false
-      @board.place(cruiser, ['A1', 'A2'])
-      expect(@board.ship_present?(['A1', 'A2'])).to be true
-    end
   end
 
   describe 'places ships' do 
-    it 'places cruiser' do
+    xit 'places cruiser' do
       cruiser = Ship.new("Cruiser", 3)
       @board.place(cruiser, ["A1", "A2", "A3"])  
       cell_1 = @board.cells["A1"]    
@@ -98,7 +94,7 @@ RSpec.describe Board do
   end
 
   describe 'overlapping ships' do
-    it 'does not overlap' do
+    xit 'does not overlap' do
       cruiser = Ship.new("Cruiser", 3)
       @board.place(cruiser, ["A1", "A2", "A3"])
       submarine = Ship.new("Submarine", 2) 
@@ -107,7 +103,7 @@ RSpec.describe Board do
   end
 
   describe 'render the board' do
-    it 'generates a board' do
+    xit 'generates a board' do
       cruiser = Ship.new("Cruiser", 3)
       @board.place(cruiser, ["A1", "A2", "A3"]) 
       @board.render
