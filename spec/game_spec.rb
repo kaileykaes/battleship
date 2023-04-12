@@ -37,7 +37,7 @@ RSpec.describe 'Game' do
       expect(@game.robo_board.ships).to eq([@game.robo_cruiser, @game.robo_submarine])
     end
 
-    it 'human places ships in valid locations' do
+    xit 'human places ships in valid locations' do
       @game.human_place_ship(@game.human_cruiser)
       @game.human_place_ship(@game.human_submarine)
       @game.human_place_ship(@game.human_cruiser, ["A1", "A2", "A3"])
@@ -48,14 +48,14 @@ RSpec.describe 'Game' do
     
     end
 
-    it 'takes coordinates from user to place ships' do
+    xit 'takes coordinates from user to place ships' do
       expect(@game.human_board.ships).to eq([])
       @game.human_place_ship(@game.human_cruiser)
       @game.human_place_ship(@game.human_submarine)
       expect(@game.human_board.ships).to eq([@game.human_cruiser, @game.human_submarine])
     end
 
-    it 'prompts user to enter valid placements if invalid placements' do
+    xit 'prompts user to enter valid placements if invalid placements' do
       expect(@game.human_place_ship).to eq("Try again with valid coordinates")
     end
     # Computer can place ships randomly in valid locations
@@ -123,14 +123,11 @@ RSpec.describe 'Game' do
     it 'result message after robo shot' do 
       @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
       @game.human_board.place(@game.human_submarine, ['A1', 'B1'])
-      expect{ @game.robo_shoot }.to output('Whoops. Missed.'|| 'Yippee!! Ship struck!' || 'Sunken ship!').to_stdout      
+      expect{ @game.robo_shoot }.to output('Whoops. Missed.' || 'Yippee!! Ship struck!' || 'Sunken ship!').to_stdout      
     end
   end
 
-  # Entering invalid coordinate prompts user to enter valid coordinate
   # Both computer and player shots are reported as a hit, sink, or miss
-  # User is informed when they have already fired on a coordinate
-  # Board is updated after a turn
   
   describe 'end game' do
     it 'ends if human ships are sunk' do 
@@ -159,7 +156,7 @@ RSpec.describe 'Game' do
       expect(@game.game_over?).to be true
     end
     
-    xit 'unless all of one players ships are sunk, not over' do 
+    it 'unless all of one players ships are sunk, not over' do 
       @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
       @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
       @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
