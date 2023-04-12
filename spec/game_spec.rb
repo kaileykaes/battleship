@@ -66,14 +66,21 @@ RSpec.describe 'Game' do
       )
     end
   end
-
+  
   describe 'player shots' do 
     it 'player can fire' do
       expect(@game.robo_board.cells['A1'].fired_upon?).to be false
       @game.human_shoot('A1')
       expect(@game.robo_board.cells['A1'].fired_upon?).to be true
     end 
-
+    
+    it 'result message after a shot' do 
+      @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
+      @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
+      expect{ @game.human_shoot('A4') }.to output('You missed it by a mile. Whoops.').to_stdout
+      expect{ @game.human_shoot('B1') }.to output('My ship struck!').to_stdout
+      expect{ @game.human_shoot('C1') }.to output('My ship sunk!').to_stdout      
+    end
   end
   # Computer chooses a random shot
   # Computer does not fire on the same spot twice
@@ -112,11 +119,11 @@ RSpec.describe 'Game' do
       @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
       @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
       @game.human_shoot('A4')
-      expect(@game.results('A4')).to eq('Whoops. Missed.')
+      expect(@game.results(@game.robo_board, 'A4')).to eq('missed it by a mile. Whoops.')
       @game.human_shoot('B1')
-      expect(@game.results('B1')).to eq("Yippee!! Ship struck!")
+      expect(@game.results(@game.robo_board,'B1')).to eq('ship struck!')
       @game.human_shoot('C1')
-      expect(@game.results('C1')).to eq('Sunken ship!')
+      expect(@game.results(@game.robo_board,'C1')).to eq('ship sunk!')
     end
   end
 end
