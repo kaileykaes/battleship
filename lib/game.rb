@@ -61,6 +61,7 @@ class Game
 
   def human_shoot(coordinate)
     @robo_board.cells[coordinate].fire_upon if valid_human_shot?(coordinate)
+    print results(@robo_board, coordinate)
   end
 
   #helpers
@@ -86,8 +87,6 @@ class Game
       'Sunken ship!'
     elsif board.cells[coordinate].render == 'H'
       'Yippee!! Ship struck!'
-    else
-      'No shots fired here.'
     end
   end
 end

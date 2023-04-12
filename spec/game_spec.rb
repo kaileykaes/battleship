@@ -77,9 +77,9 @@ RSpec.describe 'Game' do
     it 'result message after a shot' do 
       @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
       @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
-      expect{ @game.human_shoot('A4') }.to output('You missed it by a mile. Whoops.').to_stdout
-      expect{ @game.human_shoot('B1') }.to output('My ship struck!').to_stdout
-      expect{ @game.human_shoot('C1') }.to output('My ship sunk!').to_stdout      
+      expect{ @game.human_shoot('A4') }.to output('Whoops. Missed.').to_stdout
+      expect{ @game.human_shoot('B1') }.to output('Yippee!! Ship struck!').to_stdout
+      expect{ @game.human_shoot('C1') }.to output('Sunken ship!').to_stdout      
     end
   end
   # Computer chooses a random shot
@@ -119,11 +119,11 @@ RSpec.describe 'Game' do
       @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
       @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
       @game.human_shoot('A4')
-      expect(@game.results(@game.robo_board, 'A4')).to eq('missed it by a mile. Whoops.')
+      expect(@game.results(@game.robo_board, 'A4')).to eq('Whoops. Missed.')
       @game.human_shoot('B1')
-      expect(@game.results(@game.robo_board,'B1')).to eq('ship struck!')
+      expect(@game.results(@game.robo_board,'B1')).to eq('Yippee!! Ship struck!')
       @game.human_shoot('C1')
-      expect(@game.results(@game.robo_board,'C1')).to eq('ship sunk!')
+      expect(@game.results(@game.robo_board,'C1')).to eq('Sunken ship!')
     end
   end
 end
