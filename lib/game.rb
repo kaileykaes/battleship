@@ -52,6 +52,11 @@ class Game
     # if invalid placement, prompts to enter valid placement
   end
 
-
+  def display_boards
+    "=============ROBO BOARD=============\n" + 
+    "#{@robo_board.render}\n" +
+    "=============HUMAN BOARD=============\n" +
+    "#{@human_board.render(reveal_ship = true)}"
+  end
 
 end
