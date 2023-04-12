@@ -61,7 +61,7 @@ class Game
 
   def human_shoot(coordinate)
     @robo_board.cells[coordinate].fire_upon if human_shot_validation(coordinate) == 'KABOOM'
-    print results(@robo_board, coordinate)
+    results(@robo_board, coordinate)
   end
 
   def robo_shoot
@@ -72,7 +72,7 @@ class Game
       break
     end
     @human_board.cells[coordinate].fire_upon
-    print results(@human_board, coordinate)
+    results(@human_board, coordinate)
   end
 
   def game_over?
@@ -82,6 +82,18 @@ class Game
       true
     else
       false
+    end
+  end
+
+  def winner 
+    if game_over?
+      if @human_cruiser.sunk? && @human_submarine.sunk?
+        :robo
+      elsif @robo_cruiser.sunk? && @robo_submarine.sunk?
+        :human
+      end
+    else 
+      :nobody
     end
   end
 
