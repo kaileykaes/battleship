@@ -102,15 +102,15 @@ RSpec.describe 'Game' do
 
     it 'cannot fire on invalid coordinates' do 
       expect(@game.robo_board.valid_coordinate?('B5')).to be false
-      expect(@game.human_shoot('B5')).to eq(nil)
+      expect(@game.human_shoot('B5')).to be false
     end
     
     it 'result message after a shot' do 
       @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
       @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
-      expect{ @game.human_shoot('A4') }.to output('Whoops. Missed.').to_stdout
-      expect{ @game.human_shoot('B1') }.to output('Yippee!! Ship struck!').to_stdout
-      expect{ @game.human_shoot('C1') }.to output('Sunken ship!').to_stdout      
+      expect(@game.human_shoot('A4')).to eq('Whoops. Missed.')
+      expect(@game.human_shoot('B1')).to eq('Yippee!! Ship struck!')
+      expect(@game.human_shoot('C1')).to eq('Sunken ship!')      
     end
   end
 
@@ -123,7 +123,7 @@ RSpec.describe 'Game' do
     it 'result message after robo shot' do 
       @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
       @game.human_board.place(@game.human_submarine, ['A1', 'B1'])
-      expect{ @game.robo_shoot }.to output('Whoops. Missed.' || 'Yippee!! Ship struck!' || 'Sunken ship!').to_stdout      
+      expect(@game.robo_shoot).to be_a String      
     end
   end
 
