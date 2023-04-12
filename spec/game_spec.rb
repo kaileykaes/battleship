@@ -116,7 +116,6 @@ RSpec.describe 'Game' do
       expect{ @game.robo_shoot }.to output('Whoops. Missed.'|| 'Yippee!! Ship struck!' || 'Sunken ship!').to_stdout      
     end
   end
-  # Computer chooses a random shot
   # Computer does not fire on the same spot twice
   # Entering invalid coordinate prompts user to enter valid coordinate
   # Both computer and player shots are reported as a hit, sink, or miss
@@ -124,8 +123,48 @@ RSpec.describe 'Game' do
   # Board is updated after a turn
   
   describe 'end game' do
-    # Game ends when all the user’s ships are sunk
-    # Game ends when all the computer’s ships are sunk
+    it 'ends if human ships are sunk' do 
+      @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
+      @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
+      @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
+      @game.human_board.place(@game.human_submarine, ['A1', 'B1'])
+      @game.human_board.cells['A1'].fire_upon
+      @game.human_board.cells['B1'].fire_upon
+      @game.human_board.cells['B4'].fire_upon
+      @game.human_board.cells['C4'].fire_upon
+      @game.human_board.cells['D4'].fire_upon
+      expect(@game.game_over?).to be true
+    end
+    
+    it 'ends when robo ships are sunk' do 
+      @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
+      @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
+      @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
+      @game.human_board.place(@game.human_submarine, ['A1', 'B1'])
+      @game.human_shoot('A1')
+      @game.human_shoot('A2')
+      @game.human_shoot('A3')
+      @game.human_shoot('B1')
+      @game.human_shoot('C1')
+      expect(@game.game_over?).to be true
+    end
+    
+    it 'unless all of one players ships are sunk, not over' do 
+      @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
+      @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
+      @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
+      @game.human_board.place(@game.human_submarine, ['A1', 'B1'])
+      @game.human_shoot('A1')
+      @game.human_shoot('A2')
+      @game.human_shoot('A3')
+      @game.human_board.cells['B1'].fire_upon
+      @game.human_board.cells['B4'].fire_upon
+      @game.human_board.cells['C4'].fire_upon
+      @game.human_board.cells['D4'].fire_upon
+      expect(@game.game_over?).to be false
+    end
+
+    
     # Game reports who won
     # Game returns user back to the Main Menu
   end
