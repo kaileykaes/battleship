@@ -79,5 +79,15 @@ class Game
     end
   end
 
-
+  def results(board, coordinate)
+    if board.cells[coordinate].render == 'M'
+      'Whoops. Missed.'
+    elsif board.cells[coordinate].render == 'X'
+      'Sunken ship!'
+    elsif board.cells[coordinate].render == 'H'
+      'Yippee!! Ship struck!'
+    else
+      'No shots fired here.'
+    end
+  end
 end
