@@ -60,7 +60,7 @@ class Game
   end
 
   def human_shoot(coordinate)
-    @robo_board.cells[coordinate].fire_upon if valid_human_shot?(coordinate)
+    @robo_board.cells[coordinate].fire_upon if human_shot_validation(coordinate) == 'KABOOM'
     print results(@robo_board, coordinate)
   end
 
@@ -72,10 +72,12 @@ class Game
     unfired.keys
   end
 
-  def valid_human_shot?(coordinate)
+  def human_shot_validation(coordinate)
     if unfired_cells(@robo_board).include?(coordinate) && @robo_board.valid_coordinate?(coordinate)
       'KABOOM'
-    else
+    elsif !unfired_cells(@robo_board).include?(coordinate) && @robo_board.valid_coordinate?(coordinate)
+      'You already shot there, remember? Try again.'
+    elsif !@robo_board.valid_coordinate?(coordinate)
       'No. Check your aim. Set another coordinate in your sights.'
     end
   end

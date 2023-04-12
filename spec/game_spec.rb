@@ -114,7 +114,7 @@ RSpec.describe 'Game' do
       expect(@game.human_shot_validation('B5')).to eq('No. Check your aim. Set another coordinate in your sights.')
       expect(@game.human_shot_validation('A1')).to eq('KABOOM')
       @game.human_shoot('A1')
-      expect(@game.human_shot_validation('A1')).to eq('You already shot there, remember?')
+      expect(@game.human_shot_validation('A1')).to eq('You already shot there, remember? Try again.')
     end
 
     it '#results' do 
