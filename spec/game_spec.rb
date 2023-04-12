@@ -95,17 +95,28 @@ RSpec.describe 'Game' do
         'A1', 'A2', 'A3', 'A4', 'B1', 'B2', 
         'B3', 'B4', 'C1', 'C2', 'C3', 'C4', 
         'D1', 'D2', 'D3', 'D4' 
-        ])
-        expect(@game.unfired_cells(@game.human_board)).to eq([
-          'A1', 'A2', 'A3', 'A4', 'B1', 'B2', 
-          'B3', 'B4', 'C1', 'C2', 'C3', 'C4', 
-          'D1', 'D2', 'D3', 'D4' 
-          ])
-        end
+      ])
+      expect(@game.unfired_cells(@game.human_board)).to eq([
+        'A1', 'A2', 'A3', 'A4', 'B1', 'B2', 
+        'B3', 'B4', 'C1', 'C2', 'C3', 'C4', 
+        'D1', 'D2', 'D3', 'D4' 
+      ])
+    end
     
     it '#valid_human_shot?' do 
       expect(@game.valid_human_shot?('B5')).to eq('No. Check your aim. Set another coordinate in your sights.')
       expect(@game.valid_human_shot?('A1')).to eq('KABOOM')
+    end
+
+    it '#results' do 
+      @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
+      @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
+      @game.human_shoot('A4')
+      expect(@game.results('A4')).to eq('Whoops. Missed.')
+      @game.human_shoot('B1')
+      expect(@game.results('B1')).to eq("Yippee!! Ship struck!")
+      @game.human_shoot('C1')
+      expect(@game.results('C1')).to eq('Sunken ship!')
     end
   end
 end
