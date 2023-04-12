@@ -83,12 +83,16 @@ class Game
   end
 
   def results(board, coordinate)
-    if board.cells[coordinate].render == 'M'
-      'Whoops. Missed.'
-    elsif board.cells[coordinate].render == 'X'
-      'Sunken ship!'
-    elsif board.cells[coordinate].render == 'H'
-      'Yippee!! Ship struck!'
+    if board.valid_coordinate?(coordinate)
+      if board.cells[coordinate].render == 'M'
+        'Whoops. Missed.'
+      elsif board.cells[coordinate].render == 'X'
+        'Sunken ship!'
+      elsif board.cells[coordinate].render == 'H'
+        'Yippee!! Ship struck!'
+      end
+    else
+      false
     end
   end
 end
