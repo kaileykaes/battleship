@@ -56,6 +56,15 @@ RSpec.describe 'Game' do
   end
 
   describe 'turn' do
+    it 'renders both game boards (no robo ships revealed)' do 
+      @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
+      @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
+      @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
+      @game.human_board.place(@game.human_submarine, ['A1', 'B1'])
+      expect(@game.display_boards).to eq(
+        "=============ROBO BOARD=============\n  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n\n=============HUMAN BOARD=============\n  1 2 3 4 \nA S . . . \nB S . . S \nC . . . S \nD . . . S \n"
+      )
+    end
     # User board is displayed showing hits, misses, sunken ships, and ships
     # Computer board is displayed showing hits, misses, and sunken ships
     # Computer chooses a random shot
