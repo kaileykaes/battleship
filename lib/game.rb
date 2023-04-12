@@ -43,7 +43,7 @@ class Game
   end
   
   def human_place_ship(ship)
-      loop do
+    loop do
       human_input = gets.chomp.upcase.split(" ")
       if @human_board.valid_placement?(ship, human_input)
         @human_board.place(ship, human_input)
@@ -52,7 +52,6 @@ class Game
         puts "Try again with valid coordinates:\n "
       end
     end  
-  require 'pry'; binding.pry
     puts @human_board.render(true)
 end
 
