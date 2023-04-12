@@ -67,4 +67,13 @@ class Game
     unfired.keys
   end
 
+  def valid_human_shot?(coordinate)
+    if unfired_cells(@robo_board).include?(coordinate) && @robo_board.cells[coordinate].fired_upon? == false
+      'KABOOM'
+    else
+      'No. Check your aim. Set another coordinate in your sights.'
+    end
+  end
+
+
 end
