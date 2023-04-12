@@ -89,10 +89,9 @@ RSpec.describe 'Game' do
   end
 
   describe 'robo shots' do 
-    xit 'robo can fire' do
-      expect(@game.human_board.cells['A1'].fired_upon?).to be false
-      @game.robo_shoot('A1')
-      expect(@game.human_board.cells['A1'].fired_upon?).to be true
+    it 'robo can fire' do
+      @game.robo_shoot
+      expect(@game.unfired_cells(@game.human_board).length).to eq(15)
     end 
   end
   # Computer chooses a random shot
