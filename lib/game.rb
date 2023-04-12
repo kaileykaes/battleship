@@ -59,6 +59,10 @@ class Game
     "#{@human_board.render(reveal_ship = true)}"
   end
 
+  def human_shoot(coordinate)
+    @robo_board.cells[coordinate].fire_upon
+  end
+
   #helpers
   def unfired_cells(board)
     unfired = board.cells.select do |_, cell|
