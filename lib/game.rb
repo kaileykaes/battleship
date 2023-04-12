@@ -40,17 +40,21 @@ class Game
         break
       end
     end
-
-    # random_coordinates
-    # 2 samples of keys for sub
-    # 3 samples of keys for cruiser
   end
   
-  def human_ship_placement
-    # takes coordinates from player = []
-    # place ship
-    # if invalid placement, prompts to enter valid placement
-  end
+  def human_place_ship(ship)
+      loop do
+      human_input = gets.chomp.upcase.split(" ")
+      if @human_board.valid_placement?(ship, human_input)
+        @human_board.place(ship, human_input)
+        break
+      else
+        puts "Try again with valid coordinates:\n "
+      end
+    end  
+  require 'pry'; binding.pry
+    puts @human_board.render(true)
+end
 
   def display_boards
     "=============ROBO BOARD=============\n" + 
@@ -85,6 +89,14 @@ class Game
     end
   end
 
+  def bye_bye
+    puts
+
+    puts "                The battle is over... for now...                               "
+    main_menu
+  end
+
+
   #helpers
   def unfired_cells(board)
     unfired = board.cells.select do |_, cell|
@@ -116,6 +128,4 @@ class Game
       false
     end
   end
-end
-
 end
