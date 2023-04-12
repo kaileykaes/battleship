@@ -64,6 +64,16 @@ class Game
     print results(@robo_board, coordinate)
   end
 
+  def robo_shoot
+    coordinate = @human_board.cells.keys.sample
+    until unfired_cells(@human_board).include?(coordinate) &&
+      @human_board.valid_coordinate?(coordinate)
+      coordinate = @human_board.cells.keys.sample
+      break
+    end
+    @human_board.cells[coordinate].fire_upon
+  end
+
   #helpers
   def unfired_cells(board)
     unfired = board.cells.select do |_, cell|
