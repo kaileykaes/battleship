@@ -116,7 +116,7 @@ RSpec.describe 'Game' do
       expect{ @game.robo_shoot }.to output('Whoops. Missed.'|| 'Yippee!! Ship struck!' || 'Sunken ship!').to_stdout      
     end
   end
-  # Computer does not fire on the same spot twice
+
   # Entering invalid coordinate prompts user to enter valid coordinate
   # Both computer and player shots are reported as a hit, sink, or miss
   # User is informed when they have already fired on a coordinate
@@ -164,7 +164,57 @@ RSpec.describe 'Game' do
       expect(@game.game_over?).to be false
     end
 
+    it 'determines human winner' do 
+      @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
+      @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
+      @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
+      @game.human_board.place(@game.human_submarine, ['A1', 'B1'])
+      @game.human_shoot('A1')
+      @game.human_shoot('A2')
+      @game.human_shoot('A3')
+      @game.human_shoot('B1')
+      @game.human_shoot('C1')
+      expect(@game.winner).to eq(:human)
+    end
     
+    it 'determines robo winner' do 
+      @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
+      @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
+      @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
+      @game.human_board.place(@game.human_submarine, ['A1', 'B1'])
+      @game.human_board.cells['A1'].fire_upon
+      @game.human_board.cells['B1'].fire_upon
+      @game.human_board.cells['B4'].fire_upon
+      @game.human_board.cells['C4'].fire_upon
+      @game.human_board.cells['D4'].fire_upon
+      expect(@game.winner).to eq(:robo)
+    end
+
+    it '#end_game if robo winner' do 
+      @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
+      @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
+      @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
+      @game.human_board.place(@game.human_submarine, ['A1', 'B1'])
+      @game.human_board.cells['A1'].fire_upon
+      @game.human_board.cells['B1'].fire_upon
+      @game.human_board.cells['B4'].fire_upon
+      @game.human_board.cells['C4'].fire_upon
+      @game.human_board.cells['D4'].fire_upon
+      expect{@game.end_game}.to output('Robo wins!').to_stdout
+    end
+
+    it '#end_game if human winner' do 
+      @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
+      @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
+      @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
+      @game.human_board.place(@game.human_submarine, ['A1', 'B1'])
+      @game.human_shoot('A1')
+      @game.human_shoot('A2')
+      @game.human_shoot('A3')
+      @game.human_shoot('B1')
+      @game.human_shoot('C1')
+      expect{@game.end_game}.to output('You win!').to_stdout
+    end
     # Game reports who won
     # Game returns user back to the Main Menu
   end
