@@ -80,7 +80,7 @@ describe 'coordinate validation' do
   end
 
   describe 'places ships' do 
-    xit 'places cruiser' do
+    it 'places cruiser' do
       cruiser = Ship.new("Cruiser", 3)
       @board.place(cruiser, ["A1", "A2", "A3"])  
       cell_1 = @board.cells["A1"]    
@@ -94,7 +94,7 @@ describe 'coordinate validation' do
   end
 
   describe 'overlapping ships' do
-    xit 'does not overlap' do
+    it 'does not overlap' do
       cruiser = Ship.new("Cruiser", 3)
       @board.place(cruiser, ["A1", "A2", "A3"])
       submarine = Ship.new("Submarine", 2) 
@@ -103,7 +103,7 @@ describe 'coordinate validation' do
   end
 
   describe 'render the board' do
-    xit 'generates a board' do
+    it 'generates a board' do
       cruiser = Ship.new("Cruiser", 3)
       @board.place(cruiser, ["A1", "A2", "A3"]) 
       @board.render
