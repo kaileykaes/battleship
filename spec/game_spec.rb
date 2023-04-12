@@ -41,14 +41,18 @@ RSpec.describe 'Game' do
       @game.human_place_ship(@game.human_cruiser)
       @game.human_place_ship(@game.human_submarine)
       @game.human_place_ship(@game.human_cruiser, ["A1", "A2", "A3"])
-      expect(@game.human_board.cells["A1"].ship).to be_a(Ship)
+      expect(@game.human_board.cells["A1"].ship).to eq(@game.human_cruiser)
+      expect(@game.human_board.cells["A2"].ship).to eq(@game.human_cruiser)
+      expect(@game.human_board.cells["A3"].ship).to eq(@game.human_cruiser)
+    
+    
     end
 
     it 'takes coordinates from user to place ships' do
       expect(@game.human_board.ships).to eq([])
       @game.human_place_ship(@game.human_cruiser)
       @game.human_place_ship(@game.human_submarine)
-      expect(@game.human.ships).to eq([@game.human_cruiser, @game.human_submarine])
+      expect(@game.human_board.ships).to eq([@game.human_cruiser, @game.human_submarine])
     end
 
     it 'prompts user to enter valid placements if invalid placements' do
