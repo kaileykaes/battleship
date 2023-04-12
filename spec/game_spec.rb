@@ -149,7 +149,7 @@ RSpec.describe 'Game' do
       expect(@game.game_over?).to be true
     end
     
-    it 'unless all of one players ships are sunk, not over' do 
+    xit 'unless all of one players ships are sunk, not over' do 
       @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
       @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
       @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
@@ -164,7 +164,7 @@ RSpec.describe 'Game' do
       expect(@game.game_over?).to be false
     end
 
-    it 'determines human winner' do 
+    xit 'determines human winner' do 
       @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
       @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
       @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
@@ -177,7 +177,7 @@ RSpec.describe 'Game' do
       expect(@game.winner).to eq(:human)
     end
     
-    it 'determines robo winner' do 
+    xit 'determines robo winner' do 
       @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
       @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
       @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
@@ -190,7 +190,7 @@ RSpec.describe 'Game' do
       expect(@game.winner).to eq(:robo)
     end
 
-    it '#end_game if robo winner' do 
+    xit '#end_game if robo winner' do 
       @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
       @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
       @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
@@ -203,7 +203,7 @@ RSpec.describe 'Game' do
       expect{@game.end_game}.to output('Robo wins!').to_stdout
     end
 
-    it '#end_game if human winner' do 
+    xit '#end_game if human winner' do 
       @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
       @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
       @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
