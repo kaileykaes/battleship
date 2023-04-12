@@ -55,7 +55,7 @@ RSpec.describe 'Game' do
 
   end
 
-  describe 'turn' do
+  describe 'board display' do
     it 'renders both game boards (no robo ships revealed)' do 
       @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
       @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
@@ -65,21 +65,46 @@ RSpec.describe 'Game' do
         "=============ROBO BOARD=============\n  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n\n=============HUMAN BOARD=============\n  1 2 3 4 \nA S . . . \nB S . . S \nC . . . S \nD . . . S \n"
       )
     end
-    # User board is displayed showing hits, misses, sunken ships, and ships
-    # Computer board is displayed showing hits, misses, and sunken ships
-    # Computer chooses a random shot
-    # Computer does not fire on the same spot twice
-    # User can choose a valid coordinate to fire on
-    # Entering invalid coordinate prompts user to enter valid coordinate
-    # Both computer and player shots are reported as a hit, sink, or miss
-    # User is informed when they have already fired on a coordinate
-    # Board is updated after a turn
   end
+
+  describe 'player shots' do 
+    it 'player can fire' do
+      expect(@game.robo_board.cells['A1'].fired_upon?).to be false
+      @game.human_shoot('A1')
+      expect(@game.robo_board.cells['A1'].fired_upon?).to be true
+    end 
+
+    it '#valid_shot?' do 
+      expect(@game.valid_human_shot?('B5')).to eq('No. Check your aim. Set another coordinate in your sights.')
+      expect(@game.valid_human_shot?('A1')).to eq('KABOOM')
+    end
+  end
+  # Computer chooses a random shot
+  # Computer does not fire on the same spot twice
+  # Entering invalid coordinate prompts user to enter valid coordinate
+  # Both computer and player shots are reported as a hit, sink, or miss
+  # User is informed when they have already fired on a coordinate
+  # Board is updated after a turn
 
   describe 'end game' do
     # Game ends when all the user’s ships are sunk
     # Game ends when all the computer’s ships are sunk
     # Game reports who won
     # Game returns user back to the Main Menu
+  end
+
+  describe 'helpers' do 
+    it '#unfired_cells' do 
+      expect(@game.unfired_cells(@game.robo_board)).to eq([
+        'A1', 'A2', 'A3', 'A4', 'B1', 'B2', 
+        'B3', 'B4', 'C1', 'C2', 'C3', 'C4', 
+        'D1', 'D2', 'D3', 'D4' 
+      ])
+      expect(@game.unfired_cells(@game.human_board)).to eq([
+        'A1', 'A2', 'A3', 'A4', 'B1', 'B2', 
+        'B3', 'B4', 'C1', 'C2', 'C3', 'C4', 
+        'D1', 'D2', 'D3', 'D4' 
+      ])
+    end
   end
 end
