@@ -171,7 +171,7 @@ RSpec.describe 'Game' do
       expect(@game.game_over?).to be false
     end
 
-    xit 'determines human winner' do 
+    it 'determines human winner' do 
       @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
       @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
       @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
@@ -195,6 +195,20 @@ RSpec.describe 'Game' do
       @game.human_board.cells['C4'].fire_upon
       @game.human_board.cells['D4'].fire_upon
       expect(@game.winner).to eq(:robo)
+    end
+
+    xit 'determines no winner' do 
+      @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
+      @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
+      @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
+      @game.human_board.place(@game.human_submarine, ['A1', 'B1'])
+      @game.human_shoot('A1')
+      @game.human_shoot('A2')
+      @game.human_shoot('A3')
+      @game.human_board.cells['A1'].fire_upon
+      @game.human_board.cells['B1'].fire_upon
+      @game.human_board.cells['B4'].fire_upon
+      expect(@game.winner).to eq(:nobody)
     end
 
     xit '#end_game if robo winner' do 
