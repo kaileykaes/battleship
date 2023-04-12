@@ -93,6 +93,12 @@ RSpec.describe 'Game' do
       @game.robo_shoot
       expect(@game.unfired_cells(@game.human_board).length).to eq(15)
     end 
+
+    it 'result message after robo shot' do 
+      @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
+      @game.human_board.place(@game.human_submarine, ['A1', 'B1'])
+      expect{ @game.robo_shoot }.to output('Whoops. Missed.'|| 'Yippee!! Ship struck!' || 'Sunken ship!').to_stdout      
+    end
   end
   # Computer chooses a random shot
   # Computer does not fire on the same spot twice
