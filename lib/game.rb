@@ -59,4 +59,12 @@ class Game
     "#{@human_board.render(reveal_ship = true)}"
   end
 
+  #helpers
+  def unfired_cells(board)
+    unfired = board.cells.select do |_, cell|
+      cell.fired_upon? == false
+    end
+    unfired.keys
+  end
+
 end
