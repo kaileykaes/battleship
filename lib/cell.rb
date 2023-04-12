@@ -1,6 +1,7 @@
 class Cell
   attr_reader :ship, 
-              :coordinate
+              :coordinate, 
+              :is_fired_upon
   
   def initialize(coordinate)
     @coordinate = coordinate
