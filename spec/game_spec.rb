@@ -65,6 +65,22 @@ RSpec.describe 'Game' do
         "=============ROBO BOARD=============\n  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n\n=============HUMAN BOARD=============\n  1 2 3 4 \nA S . . . \nB S . . S \nC . . . S \nD . . . S \n"
       )
     end
+
+    it 'boards are updated after a turn' do 
+      @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
+      @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
+      @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
+      @game.human_board.place(@game.human_submarine, ['A1', 'B1'])
+      expect(@game.display_boards).to eq(
+        "=============ROBO BOARD=============\n  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n\n=============HUMAN BOARD=============\n  1 2 3 4 \nA S . . . \nB S . . S \nC . . . S \nD . . . S \n"
+      )
+
+      @game.human_shoot('A2') 
+      @game.human_board.cells['B1'].fire_upon
+      expect(@game.display_boards).to eq(
+        "=============ROBO BOARD=============\n  1 2 3 4 \nA . H . . \nB . . . . \nC . . . . \nD . . . . \n\n=============HUMAN BOARD=============\n  1 2 3 4 \nA S . . . \nB H . . S \nC . . . S \nD . . . S \n"
+      )
+    end
   end
   
   describe 'player shots' do 
