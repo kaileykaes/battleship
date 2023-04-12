@@ -74,10 +74,6 @@ RSpec.describe 'Game' do
       expect(@game.robo_board.cells['A1'].fired_upon?).to be true
     end 
 
-    it '#valid_shot?' do 
-      expect(@game.valid_human_shot?('B5')).to eq('No. Check your aim. Set another coordinate in your sights.')
-      expect(@game.valid_human_shot?('A1')).to eq('KABOOM')
-    end
   end
   # Computer chooses a random shot
   # Computer does not fire on the same spot twice
@@ -85,26 +81,31 @@ RSpec.describe 'Game' do
   # Both computer and player shots are reported as a hit, sink, or miss
   # User is informed when they have already fired on a coordinate
   # Board is updated after a turn
-
+  
   describe 'end game' do
     # Game ends when all the user’s ships are sunk
     # Game ends when all the computer’s ships are sunk
     # Game reports who won
     # Game returns user back to the Main Menu
   end
-
+  
   describe 'helpers' do 
     it '#unfired_cells' do 
       expect(@game.unfired_cells(@game.robo_board)).to eq([
         'A1', 'A2', 'A3', 'A4', 'B1', 'B2', 
         'B3', 'B4', 'C1', 'C2', 'C3', 'C4', 
         'D1', 'D2', 'D3', 'D4' 
-      ])
-      expect(@game.unfired_cells(@game.human_board)).to eq([
-        'A1', 'A2', 'A3', 'A4', 'B1', 'B2', 
-        'B3', 'B4', 'C1', 'C2', 'C3', 'C4', 
-        'D1', 'D2', 'D3', 'D4' 
-      ])
+        ])
+        expect(@game.unfired_cells(@game.human_board)).to eq([
+          'A1', 'A2', 'A3', 'A4', 'B1', 'B2', 
+          'B3', 'B4', 'C1', 'C2', 'C3', 'C4', 
+          'D1', 'D2', 'D3', 'D4' 
+          ])
+        end
+    
+    it '#valid_human_shot?' do 
+      expect(@game.valid_human_shot?('B5')).to eq('No. Check your aim. Set another coordinate in your sights.')
+      expect(@game.valid_human_shot?('A1')).to eq('KABOOM')
     end
   end
 end
