@@ -184,7 +184,7 @@ RSpec.describe 'Game' do
       expect(@game.winner).to eq(:human)
     end
     
-    xit 'determines robo winner' do 
+    it 'determines robo winner' do 
       @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
       @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
       @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
@@ -197,7 +197,7 @@ RSpec.describe 'Game' do
       expect(@game.winner).to eq(:robo)
     end
 
-    xit 'determines no winner' do 
+    it 'determines no winner' do 
       @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
       @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
       @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
@@ -211,7 +211,7 @@ RSpec.describe 'Game' do
       expect(@game.winner).to eq(:nobody)
     end
 
-    xit '#end_game if robo winner' do 
+    it '#end_game if robo winner' do 
       @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
       @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
       @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
@@ -221,10 +221,10 @@ RSpec.describe 'Game' do
       @game.human_board.cells['B4'].fire_upon
       @game.human_board.cells['C4'].fire_upon
       @game.human_board.cells['D4'].fire_upon
-      expect{@game.end_game}.to output('Robo wins!').to_stdout
+      expect(@game.end_game).to eq('Robo wins!')
     end
 
-    xit '#end_game if human winner' do 
+    it '#end_game if human winner' do 
       @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
       @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
       @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
@@ -234,7 +234,7 @@ RSpec.describe 'Game' do
       @game.human_shoot('A3')
       @game.human_shoot('B1')
       @game.human_shoot('C1')
-      expect{@game.end_game}.to output('You win!').to_stdout
+      expect(@game.end_game).to eq('You win!')
     end
     # Game reports who won
     # Game returns user back to the Main Menu

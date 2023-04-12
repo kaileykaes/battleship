@@ -97,6 +97,16 @@ class Game
     end
   end
 
+  def end_game
+    if game_over?
+      if winner == :robo
+        'Robo wins!'
+      elsif winner == :human
+        'You win!'
+      end
+    end
+  end
+
   #helpers
   def unfired_cells(board)
     unfired = board.cells.select do |_, cell|
