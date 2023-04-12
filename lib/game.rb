@@ -72,6 +72,7 @@ class Game
       break
     end
     @human_board.cells[coordinate].fire_upon
+    print results(@human_board, coordinate)
   end
 
   #helpers
