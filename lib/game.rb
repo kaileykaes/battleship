@@ -75,6 +75,16 @@ class Game
     print results(@human_board, coordinate)
   end
 
+  def game_over?
+    if @human_cruiser.sunk? && @human_submarine.sunk?
+      true
+    elsif @robo_cruiser.sunk? && @robo_submarine.sunk?
+      true
+    else
+      false
+    end
+  end
+
   #helpers
   def unfired_cells(board)
     unfired = board.cells.select do |_, cell|
