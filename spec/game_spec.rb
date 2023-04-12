@@ -73,6 +73,11 @@ RSpec.describe 'Game' do
       @game.human_shoot('A1')
       expect(@game.robo_board.cells['A1'].fired_upon?).to be true
     end 
+
+    it 'cannot fire on invalid coordinates' do 
+      expect(@game.robo_board.valid_coordinate?('B5')).to be false
+      expect(@game.human_shoot('B5')).to eq(nil)
+    end
     
     it 'result message after a shot' do 
       @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
@@ -81,6 +86,14 @@ RSpec.describe 'Game' do
       expect{ @game.human_shoot('B1') }.to output('Yippee!! Ship struck!').to_stdout
       expect{ @game.human_shoot('C1') }.to output('Sunken ship!').to_stdout      
     end
+  end
+
+  describe 'robo shots' do 
+    xit 'robo can fire' do
+      expect(@game.human_board.cells['A1'].fired_upon?).to be false
+      @game.robo_shoot('A1')
+      expect(@game.human_board.cells['A1'].fired_upon?).to be true
+    end 
   end
   # Computer chooses a random shot
   # Computer does not fire on the same spot twice
