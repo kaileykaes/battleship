@@ -33,8 +33,27 @@ RSpec.describe 'Game' do
     it 'robo places ships randomly in valid locations' do
       expect(@game.robo_board.ships.empty?).to be true
       @game.robo_place_ship
-      # require 'pry'; binding.pry
       expect(@game.robo_board.ships).to eq([@game.robo_cruiser, @game.robo_submarine])
+    end
+
+    xit 'human places ships in valid locations' do
+      @game.human_place_ship(@game.human_cruiser)
+      @game.human_place_ship(@game.human_submarine)
+      @game.human_place_ship(@game.human_cruiser, ["A1", "A2", "A3"])
+      expect(@game.human_board.cells["A1"].ship).to eq(@game.human_cruiser)
+      expect(@game.human_board.cells["A2"].ship).to eq(@game.human_cruiser)
+      expect(@game.human_board.cells["A3"].ship).to eq(@game.human_cruiser)  
+    end
+
+    xit 'takes coordinates from user to place ships' do
+      expect(@game.human_board.ships).to eq([])
+      @game.human_place_ship(@game.human_cruiser)
+      @game.human_place_ship(@game.human_submarine)
+      expect(@game.human_board.ships).to eq([@game.human_cruiser, @game.human_submarine])
+    end
+
+    xit 'prompts user to enter valid placements if invalid placements' do
+      expect(@game.human_place_ship).to eq("Try again with valid coordinates")
     end
   end
 
@@ -75,15 +94,15 @@ RSpec.describe 'Game' do
 
     it 'cannot fire on invalid coordinates' do 
       expect(@game.robo_board.valid_coordinate?('B5')).to be false
-      expect(@game.human_shoot('B5')).to eq(nil)
+      expect(@game.human_shoot('B5')).to be false
     end
     
     it 'result message after a shot' do 
       @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
       @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
-      expect{ @game.human_shoot('A4') }.to output('Whoops. Missed.').to_stdout
-      expect{ @game.human_shoot('B1') }.to output('Yippee!! Ship struck!').to_stdout
-      expect{ @game.human_shoot('C1') }.to output('Sunken ship!').to_stdout      
+      expect(@game.human_shoot('A4')).to eq('Whoops. Missed.')
+      expect(@game.human_shoot('B1')).to eq('Yippee!! Ship struck!')
+      expect(@game.human_shoot('C1')).to eq('Sunken ship!')      
     end
   end
 
@@ -96,14 +115,9 @@ RSpec.describe 'Game' do
     it 'result message after robo shot' do 
       @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
       @game.human_board.place(@game.human_submarine, ['A1', 'B1'])
-      expect{ @game.robo_shoot }.to output('Whoops. Missed.'|| 'Yippee!! Ship struck!' || 'Sunken ship!').to_stdout      
+      expect(@game.robo_shoot).to be_a String      
     end
   end
-
-  # Entering invalid coordinate prompts user to enter valid coordinate
-  # Both computer and player shots are reported as a hit, sink, or miss
-  # User is informed when they have already fired on a coordinate
-  # Board is updated after a turn
   
   describe 'end game' do
     it 'ends if human ships are sunk' do 
@@ -132,7 +146,7 @@ RSpec.describe 'Game' do
       expect(@game.game_over?).to be true
     end
     
-    xit 'unless all of one players ships are sunk, not over' do 
+    it 'unless all of one players ships are sunk, not over' do 
       @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
       @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
       @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
@@ -147,7 +161,7 @@ RSpec.describe 'Game' do
       expect(@game.game_over?).to be false
     end
 
-    xit 'determines human winner' do 
+    it 'determines human winner' do 
       @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
       @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
       @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
@@ -160,7 +174,7 @@ RSpec.describe 'Game' do
       expect(@game.winner).to eq(:human)
     end
     
-    xit 'determines robo winner' do 
+    it 'determines robo winner' do 
       @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
       @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
       @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
@@ -173,7 +187,21 @@ RSpec.describe 'Game' do
       expect(@game.winner).to eq(:robo)
     end
 
-    xit '#end_game if robo winner' do 
+    it 'determines no winner' do 
+      @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
+      @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
+      @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
+      @game.human_board.place(@game.human_submarine, ['A1', 'B1'])
+      @game.human_shoot('A1')
+      @game.human_shoot('A2')
+      @game.human_shoot('A3')
+      @game.human_board.cells['A1'].fire_upon
+      @game.human_board.cells['B1'].fire_upon
+      @game.human_board.cells['B4'].fire_upon
+      expect(@game.winner).to eq(:nobody)
+    end
+
+    it '#end_game if robo winner' do 
       @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
       @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
       @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
@@ -183,10 +211,10 @@ RSpec.describe 'Game' do
       @game.human_board.cells['B4'].fire_upon
       @game.human_board.cells['C4'].fire_upon
       @game.human_board.cells['D4'].fire_upon
-      expect{@game.end_game}.to output('Robo wins!').to_stdout
+      expect(@game.end_game).to eq('Robo wins!')
     end
 
-    xit '#end_game if human winner' do 
+    it '#end_game if human winner' do 
       @game.robo_board.place(@game.robo_cruiser, ['A1', 'A2', 'A3'])
       @game.robo_board.place(@game.robo_submarine, ['B1', 'C1'])
       @game.human_board.place(@game.human_cruiser, ['B4', 'C4', 'D4'])
@@ -196,10 +224,8 @@ RSpec.describe 'Game' do
       @game.human_shoot('A3')
       @game.human_shoot('B1')
       @game.human_shoot('C1')
-      expect{@game.end_game}.to output('You win!').to_stdout
+      expect(@game.end_game).to eq('You win!')
     end
-    # Game reports who won
-    # Game returns user back to the Main Menu
   end
   
   describe 'helpers' do 
