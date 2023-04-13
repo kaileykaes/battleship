@@ -20,7 +20,7 @@ class Game
   end
 
   def start_game
-    main_menu
+    puts main_menu
     loop do 
       input = gets.chomp
       if input == "p" 
@@ -147,6 +147,16 @@ class Game
       'You already shot there, remember? Try again.'
     elsif !@robo_board.valid_coordinate?(coordinate)
       'No. Check your aim. Set another coordinate in your sights.'
+    end
+  end
+  
+  def valid_shot?(coordinate)
+    if unfired_cells(@robo_board).include?(coordinate) && 
+      @robo_board.valid_coordinate?(coordinate) && 
+      unfired_cells(@robo_board).include?(coordinate)
+      true
+    else
+      false
     end
   end
 
