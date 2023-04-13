@@ -58,7 +58,7 @@ RSpec.describe 'Game' do
       expect(@game.display_boards).to eq(
         "=============ROBO BOARD=============\n  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n\n=============HUMAN BOARD=============\n  1 2 3 4 \nA S . . . \nB S . . S \nC . . . S \nD . . . S \n"
       )
-# require 'pry'; binding.pry
+      
       @game.human_shoot('A2') 
       @game.human_board.cells['B1'].fire_upon
       expect(@game.display_boards).to eq(
