@@ -34,6 +34,7 @@ RSpec.describe 'Game' do
       expect(@game.robo_board.ships.empty?).to be true
       @game.robo_place_ship
       expect(@game.robo_board.ships).to eq([@game.robo_cruiser, @game.robo_submarine])
+      expect{ @game.robo_place_ship }.to output('My ships are now on my board').to_stdout
     end
   end
 
