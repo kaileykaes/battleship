@@ -36,6 +36,7 @@ RSpec.describe 'Game' do
       expect(@game.robo_board.ships).to eq([@game.robo_cruiser, @game.robo_submarine])
       expect{ @game.robo_place_ship }.to output('My ships are now on my board').to_stdout
     end
+
   end
 
   describe 'board display' do
@@ -228,6 +229,13 @@ RSpec.describe 'Game' do
       expect(@game.human_shot_validation('A1')).to eq('KABOOM')
       @game.human_shoot('A1')
       expect(@game.human_shot_validation('A1')).to eq('You already shot there, remember? Try again.')
+    end
+
+    it '#human_shot_validation' do 
+      expect(@game.valid_shot?('B5')).to be false
+      expect(@game.valid_shot?('A1')).to be true
+      @game.human_shoot('A1')
+      expect(@game.valid_shot?('A1')).to be false
     end
 
     it '#results' do 
