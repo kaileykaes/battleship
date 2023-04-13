@@ -19,6 +19,20 @@ class Game
     "Welcome to BATTLESHIP\n Enter p to play. Enter q to quit."
   end
 
+  def start_game
+    main_menu
+    loop do 
+      input = gets.chomp
+      if input == "p" 
+        break 
+      elsif input == "q"
+        puts "See you later"     
+      else
+        puts "I don't understand. Enter p or q"
+      end
+    end
+  end
+
   def robo_place_ship
     loop do
       random_coordinates = []

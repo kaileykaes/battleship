@@ -35,26 +35,6 @@ RSpec.describe 'Game' do
       @game.robo_place_ship
       expect(@game.robo_board.ships).to eq([@game.robo_cruiser, @game.robo_submarine])
     end
-
-    xit 'human places ships in valid locations' do
-      @game.human_place_ship(@game.human_cruiser)
-      @game.human_place_ship(@game.human_submarine)
-      @game.human_place_ship(@game.human_cruiser, ["A1", "A2", "A3"])
-      expect(@game.human_board.cells["A1"].ship).to eq(@game.human_cruiser)
-      expect(@game.human_board.cells["A2"].ship).to eq(@game.human_cruiser)
-      expect(@game.human_board.cells["A3"].ship).to eq(@game.human_cruiser)  
-    end
-
-    xit 'takes coordinates from user to place ships' do
-      expect(@game.human_board.ships).to eq([])
-      @game.human_place_ship(@game.human_cruiser)
-      @game.human_place_ship(@game.human_submarine)
-      expect(@game.human_board.ships).to eq([@game.human_cruiser, @game.human_submarine])
-    end
-
-    xit 'prompts user to enter valid placements if invalid placements' do
-      expect(@game.human_place_ship).to eq("Try again with valid coordinates")
-    end
   end
 
   describe 'board display' do
