@@ -54,6 +54,7 @@ class Game
         break
       end
     end
+    print 'My ships are now on my board'
   end
   
   def human_place_ship(ship)
