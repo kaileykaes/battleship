@@ -190,4 +190,19 @@ class Game
     puts 'Choose your squares for the Submarine (2 spaces):'
     puts game.human_place_ship(game.human_submarine)
   end
+
+  def turn
+    until game.game_over?
+      puts game.display_boards
+      puts "Enter the coordinate for your shot"
+      coordinate = gets.chomp.upcase
+        until game.valid_shot?(coordinate)
+          game.human_shot_validation(coordinate)
+          coordinate = gets.chomp.upcase
+          break
+          game.human_shoot(coordinate)
+        end
+      puts game.robo_shoot
+    end
+  end
 end
