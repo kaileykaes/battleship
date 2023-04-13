@@ -31,28 +31,14 @@ class Cell
   def render(reveal_ship = false)
     if reveal_ship && !empty? && fired_upon? == false
       "S"
-    elsif fired_upon? && empty?
+    elsif (reveal_ship || !reveal_ship) && fired_upon? && empty?
       "M" 
-    elsif fired_upon? && !empty? && @ship.sunk?
+    elsif (reveal_ship || !reveal_ship) && fired_upon? && !empty? && @ship.sunk?
       "X"
-    elsif fired_upon? && !empty? && !@ship.sunk?
+    elsif (reveal_ship || !reveal_ship) && fired_upon? && !empty? && !@ship.sunk?
       "H"
-    elsif !fired_upon?
+    elsif (reveal_ship || !reveal_ship) && !fired_upon?
       '.'
     end
   end
-
-  # def render(reveal_ship = false)
-	# 	if reveal_ship == true && empty? == false && fired_upon == false
-	# 		return "S"
-	# 	elsif fired_upon? == true && empty? == true
-	# 		return "M"
-	# 	elsif fired_upon? == true && empty? == false && @ship.sunk? == false
-	# 		return "H"
-	# 	elsif fired_upon? == true && empty? == false && @ship.sunk? == true
-	# 		return "X"
-	# 	else fired_upon? == false
-	# 		return "."
-	# 	end
-	# end
 end
