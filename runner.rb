@@ -10,16 +10,8 @@ require "./lib/game"
 
 loop do  
   #setup
-  game.robo_place_ship
-  puts ''
-  puts "It's your turn. You need to lay out your two ships."
-  puts "The cruiser is three units long, and the submarine is two units long"
-  puts game.human_board.render(true)
-  puts 'Choose your squares for the Cruiser (3 spaces):'
-  game.human_place_ship(game.human_cruiser)
-  puts 'Choose your squares for the Submarine (2 spaces):'
-  puts game.human_place_ship(game.human_submarine)
-
+  game.setup 
+  
   #turn
   until game.game_over?
   puts game.display_boards
