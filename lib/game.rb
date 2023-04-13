@@ -180,29 +180,29 @@ class Game
   end
 
   def setup
-    game.robo_place_ship
+    robo_place_ship
     puts ''
     puts "It's your turn. You need to lay out your two ships."
     puts "The cruiser is three units long, and the submarine is two units long"
-    puts game.human_board.render(true)
+    puts @human_board.render(true)
     puts 'Choose your squares for the Cruiser (3 spaces):'
-    game.human_place_ship(game.human_cruiser)
+    human_place_ship(@human_cruiser)
     puts 'Choose your squares for the Submarine (2 spaces):'
-    puts game.human_place_ship(game.human_submarine)
+    puts human_place_ship(@human_submarine)
   end
 
   def turn
-    until game.game_over?
-      puts game.display_boards
+    until game_over?
+      puts display_boards
       puts "Enter the coordinate for your shot"
       coordinate = gets.chomp.upcase
-        until game.valid_shot?(coordinate)
-          game.human_shot_validation(coordinate)
+        until valid_shot?(coordinate)
+          human_shot_validation(coordinate)
           coordinate = gets.chomp.upcase
           break
-          game.human_shoot(coordinate)
+          human_shoot(coordinate)
         end
-      puts game.robo_shoot
+      puts robo_shoot
     end
   end
 end
