@@ -33,7 +33,6 @@ RSpec.describe 'Game' do
     it 'robo places ships randomly in valid locations' do
       expect(@game.robo_board.ships.empty?).to be true
       @game.robo_place_ship
-      # require 'pry'; binding.pry
       expect(@game.robo_board.ships).to eq([@game.robo_cruiser, @game.robo_submarine])
     end
 
@@ -43,9 +42,7 @@ RSpec.describe 'Game' do
       @game.human_place_ship(@game.human_cruiser, ["A1", "A2", "A3"])
       expect(@game.human_board.cells["A1"].ship).to eq(@game.human_cruiser)
       expect(@game.human_board.cells["A2"].ship).to eq(@game.human_cruiser)
-      expect(@game.human_board.cells["A3"].ship).to eq(@game.human_cruiser)
-    
-    
+      expect(@game.human_board.cells["A3"].ship).to eq(@game.human_cruiser)  
     end
 
     xit 'takes coordinates from user to place ships' do
@@ -58,11 +55,6 @@ RSpec.describe 'Game' do
     xit 'prompts user to enter valid placements if invalid placements' do
       expect(@game.human_place_ship).to eq("Try again with valid coordinates")
     end
-    # Computer can place ships randomly in valid locations
-    # User can enter valid sequences to place both ships
-    # Entering invalid ship placements prompts user to enter valid placements
-    
-
   end
 
   describe 'board display' do
@@ -126,8 +118,6 @@ RSpec.describe 'Game' do
       expect(@game.robo_shoot).to be_a String      
     end
   end
-
-  # Both computer and player shots are reported as a hit, sink, or miss
   
   describe 'end game' do
     it 'ends if human ships are sunk' do 
@@ -236,8 +226,6 @@ RSpec.describe 'Game' do
       @game.human_shoot('C1')
       expect(@game.end_game).to eq('You win!')
     end
-    # Game reports who won
-    # Game returns user back to the Main Menu
   end
   
   describe 'helpers' do 
