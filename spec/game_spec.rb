@@ -58,7 +58,7 @@ RSpec.describe 'Game' do
       expect(@game.display_boards).to eq(
         "=============ROBO BOARD=============\n  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n\n=============HUMAN BOARD=============\n  1 2 3 4 \nA S . . . \nB S . . S \nC . . . S \nD . . . S \n"
       )
-
+      
       @game.human_shoot('A2') 
       @game.human_board.cells['B1'].fire_upon
       expect(@game.display_boards).to eq(
@@ -207,6 +207,10 @@ RSpec.describe 'Game' do
       @game.human_shoot('B1')
       @game.human_shoot('C1')
       expect(@game.end_game).to eq('You win!')
+    end
+
+    it '#bye_bye' do 
+      expect(@game.bye_bye).to be nil
     end
   end
   

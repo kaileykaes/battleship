@@ -79,7 +79,7 @@ class Game
   end
   
   def human_shoot(coordinate)
-    @robo_board.cells[coordinate].fire_upon if human_shot_validation(coordinate) == 'KABOOM'
+    @robo_board.cells[coordinate].fire_upon if valid_shot?(coordinate)
     # puts results(@robo_board, coordinate)
     results(@robo_board, coordinate)
   end
@@ -93,7 +93,7 @@ class Game
     end
     @human_board.cells[coordinate].fire_upon
     # puts results(@human_board, coordinate)
-    "#{results(@human_board, coordinate)}, says the robo"
+    "#{results(@human_board, coordinate)} declares Robo"
   end
   
   def game_over?
@@ -132,7 +132,6 @@ class Game
     puts
 
     puts "                The battle is over... for now...                               "
-    main_menu
   end
   
   #helpers
@@ -177,6 +176,33 @@ class Game
       end
     else
       false
+    end
+  end
+
+  def setup
+    robo_place_ship
+    puts ''
+    puts "It's your turn. You need to lay out your two ships."
+    puts "The cruiser is three units long, and the submarine is two units long"
+    puts @human_board.render(true)
+    puts 'Choose your squares for the Cruiser (3 spaces):'
+    human_place_ship(@human_cruiser)
+    puts 'Choose your squares for the Submarine (2 spaces):'
+    puts human_place_ship(@human_submarine)
+  end
+
+  def turn
+    until game_over?
+      puts display_boards
+      puts "Enter the coordinate for your shot"
+      coordinate = gets.chomp.upcase
+        until valid_shot?(coordinate)
+          human_shot_validation(coordinate)
+          coordinate = gets.chomp.upcase
+          break
+          human_shoot(coordinate)
+        end
+      puts robo_shoot
     end
   end
 end
