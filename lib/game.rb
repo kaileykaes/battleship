@@ -132,7 +132,6 @@ class Game
     puts
 
     puts "                The battle is over... for now...                               "
-    main_menu
   end
   
   #helpers
