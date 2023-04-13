@@ -20,7 +20,7 @@ class Game
   end
 
   def start_game
-    main_menu
+    puts main_menu
     loop do 
       input = gets.chomp
       if input == "p" 
@@ -54,6 +54,7 @@ class Game
         break
       end
     end
+    print 'My ships are now on my board'
   end
   
   def human_place_ship(ship)
@@ -67,6 +68,7 @@ class Game
       end
     end  
     puts @human_board.render(true)
+    @human_board.render(true)
   end
   
   def display_boards
@@ -78,6 +80,7 @@ class Game
   
   def human_shoot(coordinate)
     @robo_board.cells[coordinate].fire_upon if human_shot_validation(coordinate) == 'KABOOM'
+    # puts results(@robo_board, coordinate)
     results(@robo_board, coordinate)
   end
   
@@ -89,7 +92,8 @@ class Game
       break
     end
     @human_board.cells[coordinate].fire_upon
-    results(@human_board, coordinate)
+    # puts results(@human_board, coordinate)
+    "#{results(@human_board, coordinate)}, says the robo"
   end
   
   def game_over?
@@ -130,15 +134,6 @@ class Game
     puts "                The battle is over... for now...                               "
     main_menu
   end
-
-  #helpers
-
-  def unfired_cells(board)
-    unfired = board.cells.select do |_, cell|
-      cell.fired_upon? == false
-    end
-    unfired.keys
-  end
   
   #helpers
   def unfired_cells(board)
@@ -148,13 +143,36 @@ class Game
     unfired.keys
   end
 
+  def human_shot_validation(coordinate)
+    if unfired_cells(@robo_board).include?(coordinate) && @robo_board.valid_coordinate?(coordinate)
+      'KABOOM'
+    elsif !unfired_cells(@robo_board).include?(coordinate) && @robo_board.valid_coordinate?(coordinate)
+      'You already shot there, remember? Try again.'
+    elsif !@robo_board.valid_coordinate?(coordinate)
+      'No. Check your aim. Set another coordinate in your sights.'
+    end
+  end
+  
+  def valid_shot?(coordinate)
+    if unfired_cells(@robo_board).include?(coordinate) && 
+      @robo_board.valid_coordinate?(coordinate) && 
+      unfired_cells(@robo_board).include?(coordinate)
+      true
+    else
+      false
+    end
+  end
+
   def results(board, coordinate)
     if board.valid_coordinate?(coordinate)
       if board.cells[coordinate].render == 'M'
+        puts 'Whoops. Missed.'
         'Whoops. Missed.'
       elsif board.cells[coordinate].render == 'X'
+        puts 'Sunken ship!'
         'Sunken ship!'
       elsif board.cells[coordinate].render == 'H'
+        puts 'Yippee!! Ship struck!'
         'Yippee!! Ship struck!'
       end
     else
