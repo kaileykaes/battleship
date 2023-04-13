@@ -68,6 +68,7 @@ class Game
       end
     end  
     puts @human_board.render(true)
+    @human_board.render(true)
   end
   
   def display_boards
@@ -79,6 +80,7 @@ class Game
   
   def human_shoot(coordinate)
     @robo_board.cells[coordinate].fire_upon if human_shot_validation(coordinate) == 'KABOOM'
+    # puts results(@robo_board, coordinate)
     results(@robo_board, coordinate)
   end
   
@@ -90,7 +92,8 @@ class Game
       break
     end
     @human_board.cells[coordinate].fire_upon
-    results(@human_board, coordinate)
+    # puts results(@human_board, coordinate)
+    "#{results(@human_board, coordinate)}, says the robo"
   end
   
   def game_over?
@@ -163,10 +166,13 @@ class Game
   def results(board, coordinate)
     if board.valid_coordinate?(coordinate)
       if board.cells[coordinate].render == 'M'
+        puts 'Whoops. Missed.'
         'Whoops. Missed.'
       elsif board.cells[coordinate].render == 'X'
+        puts 'Sunken ship!'
         'Sunken ship!'
       elsif board.cells[coordinate].render == 'H'
+        puts 'Yippee!! Ship struck!'
         'Yippee!! Ship struck!'
       end
     else
